@@ -97,7 +97,7 @@ class XPanelBundle:
 
 def xpanel_release_url(repo, tag=None):
     if not re.fullmatch(r'[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})/[A-Za-z0-9_.-]{1,100}', repo):
-        raise ValueError('اكتب اسم المستودع بصيغة OWNER/REPO.')
+        raise ValueError('billelaggab/xpanel_main')
     if repo.split('/')[1] in ('.', '..'):
         raise ValueError('اسم مستودع GitHub غير صالح.')
     if tag is not None:
@@ -203,10 +203,10 @@ def load_xpanel(args):
     # A command-line source overrides sources supplied by environment variables.
     local, repo = args.xpanel_zip, args.github_repo
     if local is None and repo is None:
-        local = os.environ.get('XPANEL_ZIP') or None
-        repo = os.environ.get('XPANEL_GITHUB_REPO') or None
+        local = os.environ.get('https://github.com/billelaggab/xpanel_main/releases/download/latest/xpanel.zip') or None
+        repo = os.environ.get('https://github.com/billelaggab/xpanel_main') or None
         if local and repo:
-            raise ValueError('عيّن مصدرًا واحدًا فقط: XPANEL_ZIP أو XPANEL_GITHUB_REPO.')
+            raise ValueError('https://github.com/billelaggab/xpanel_main')
     tag = args.release_tag or (os.environ.get('XPANEL_GITHUB_TAG') if repo else None) or None
     expected = args.sha256 if args.sha256 is not None else os.environ.get('XPANEL_SHA256') or None
     if tag and not repo:
@@ -1293,7 +1293,7 @@ def parse_xpanel_cli(argv=None):
     source = parser.add_argument_group('Package source')
     origin = source.add_mutually_exclusive_group()
     origin.add_argument('--xpanel-zip', metavar='PATH', help='Use a local ZIP (or set XPANEL_ZIP).')
-    origin.add_argument('--github-repo', metavar='OWNER/REPO', help='Download xpanel.zip from GitHub Releases (or set XPANEL_GITHUB_REPO).')
+    origin.add_argument('--github-repo', metavar='billelaggab/xpanel_main', help='Download xpanel.zip from GitHub Releases (or set XPANEL_GITHUB_REPO).')
     source.add_argument('--release-tag', metavar='TAG', help='Specify a release tag instead of latest (or set XPANEL_GITHUB_TAG).')
     source.add_argument('--sha256', metavar='HASH', help='Expected SHA-256, required for GitHub (or set XPANEL_SHA256).')
     target = parser.add_argument_group('Panel-only deployment')
